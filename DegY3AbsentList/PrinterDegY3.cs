@@ -25,13 +25,13 @@ namespace BBAAbsentList
             paperCodeSqlCommand.Connection = conn;
             centerCodeSqlCommand.CommandText = String.Format("SELECT DISTINCT c_code, centre FROM absent ORDER BY c_code");
 
-            SqlDataReader centerCodeReader = centerCodeSqlCommand.ExecuteReader();
-            if (centerCodeReader.HasRows)
+            SqlDataReader centerDataReader = centerCodeSqlCommand.ExecuteReader();
+            if (centerDataReader.HasRows)
             {
-                while (centerCodeReader.Read())
+                while (centerDataReader.Read())
                 {
-                    string c_code = centerCodeReader["c_code"].ToString();
-                    string centre = centerCodeReader["centre"].ToString();
+                    string c_code = centerDataReader["c_code"].ToString();
+                    string centre = centerDataReader["centre"].ToString();
                     string FILE_PATH = "D:\\DEG_Y3\\absent_list\\absent_" + c_code + ".txt";
                     sw = new StreamWriter(FILE_PATH);
                     lineCount = 0;
@@ -39,43 +39,43 @@ namespace BBAAbsentList
                     generateAbsentList(c_code, centre, sw);
                 }
             }
-            centerCodeReader.Close();
-            // centerCodeReader.Dispose();
+            centerDataReader.Close();
+            // centerDataReader.Dispose();
         }
 
         public void generateAbsentList(string c_code, string centre, StreamWriter sw)
         {
-            regiNoSqlCommand.CommandText = String.Format("SELECT DISTINCT col_code, reg_no, exm_roll, std_name FROM absent WHERE c_code = '" + c_code + "' ORDER BY col_code, reg_no");
-            SqlDataReader regiNoReader = regiNoSqlCommand.ExecuteReader();
-            if (regiNoReader.HasRows)
+            regiNoSqlCommand.CommandText = String.Format("SELECT DISTINCT col_code, exm_roll, reg_no, std_name FROM absent WHERE c_code = '" + c_code + "' ORDER BY col_code, exm_roll");
+            SqlDataReader studentDataReader = regiNoSqlCommand.ExecuteReader();
+            if (studentDataReader.HasRows)
             {
                 printAbsentListHeader(c_code, centre, sw);
-                while (regiNoReader.Read())
+                while (studentDataReader.Read())
                 {
-                    string regiNo = regiNoReader["reg_no"].ToString();
-                    string exmRoll = regiNoReader["exm_roll"].ToString();
-                    string stdName = regiNoReader["std_name"].ToString();
+                    string exmRoll = studentDataReader["exm_roll"].ToString();
+                    string regiNo = studentDataReader["reg_no"].ToString();
+                    string stdName = studentDataReader["std_name"].ToString();
                     if (stdName.Length > 9) stdName = stdName.Substring(0, 9);
                     else if (stdName.Length < 9) stdName = stdName.PadRight(9, ' ');
-                    sw.Write("{0}|{1}|{2}", regiNo, exmRoll, stdName);
+                    sw.Write("{0}|{1}|{2}", exmRoll, regiNo, stdName);
 
-                    paperCodeSqlCommand.CommandText = String.Format("SELECT pap_code FROM absent WHERE reg_no = '" + regiNo + "' ORDER BY pap_code");
-                    SqlDataReader paperCodeReader = paperCodeSqlCommand.ExecuteReader();
-                    if (paperCodeReader.HasRows)
+                    paperCodeSqlCommand.CommandText = String.Format("SELECT pap_code FROM absent WHERE exm_roll = '" + exmRoll + "' ORDER BY pap_code");
+                    SqlDataReader paperDataReader = paperCodeSqlCommand.ExecuteReader();
+                    if (paperDataReader.HasRows)
                     {
                         int paperCount = 0;
-                        while (paperCodeReader.Read())
+                        while (paperDataReader.Read())
                         {
                             paperCount++;
-                            sw.Write("|{0}|             ", paperCodeReader["pap_code"].ToString());
+                            sw.Write("|{0}|             ", paperDataReader["pap_code"].ToString());
                         }
                         for (int i = 1; i <= 5 - paperCount; i++)
                         {
                             sw.Write("|      |             ");
                         }
                     }
-                    paperCodeReader.Close();
-                    // paperCodeReader.Dispose();
+                    paperDataReader.Close();
+                    // paperDataReader.Dispose();
                     sw.WriteLine();
                     sw.WriteLine("--------------------------------------------------------------------------------------------------------------------------------------");
                     lineCount = lineCount + 2;
@@ -86,8 +86,8 @@ namespace BBAAbsentList
 
                 }
             }
-            regiNoReader.Close();
-            // regiNoReader.Dispose();
+            studentDataReader.Close();
+            // studentDataReader.Dispose();
             sw.Close();
             // sw.Dispose();
             // conn.Close();
@@ -108,7 +108,7 @@ namespace BBAAbsentList
             sw.WriteLine("CENTRE CODE & NAME : [{0}] - {1}", c_code, centre.ToUpper());
             sw.WriteLine();
             sw.WriteLine("======================================================================================================================================");
-            sw.WriteLine("   REG_NO  |ROLL_NO|   NAME  |SUB_1 |   FORM_SL   |SUB_2 |   FORM_SL   |SUB_3 |  FORM_SL    |SUB_4 | FORM_SL     |SUB_5 |   FORM_SL");
+            sw.WriteLine("ROLL_NO|   REG_NO  |   NAME  |SUB_1 |   FORM_SL   |SUB_2 |   FORM_SL   |SUB_3 |  FORM_SL    |SUB_4 | FORM_SL     |SUB_5 |   FORM_SL");
             sw.WriteLine("======================================================================================================================================");
 
             lineCount = lineCount + 11;
