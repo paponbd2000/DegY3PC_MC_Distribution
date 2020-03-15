@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace BBAAbsentList
 {
-    public partial class DegY3AbsentListHome : Form
+    public partial class DegY3PCMCHome : Form
     {
-        public DegY3AbsentListHome()
+        public DegY3PCMCHome()
         {
             InitializeComponent();
             comboBoxExamCode.SelectedIndex = 0;

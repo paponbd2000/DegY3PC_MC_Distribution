@@ -1,6 +1,6 @@
 ﻿namespace BBAAbsentList
 {
-    partial class DegY3AbsentListHome
+    partial class DegY3PCMCHome
     {
         /// <summary>
         /// Required designer variable.

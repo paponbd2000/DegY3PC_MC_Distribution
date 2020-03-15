@@ -16,7 +16,6 @@ namespace BBAAbsentList
             // cn.ConnectionString = @"Data Source=192.168.0.36;User id=solver;Password=`1qazxsw23edc;";
             // conn.ConnectionString = @"Data Source=BBA-PC\SQLEXPRESS;Initial Catalog=bba_sem1_2015;User id=sa;Password=abc123";
 
-
             SqlConnection myConnection = new SqlConnection("user id = sa; password = abc123; server = BBA-PROF;"
                                                 + "Trusted_Connection = yes; database = degrst18y3;"
                                                 + "MultipleActiveResultSets=true; connection timeout = 30");

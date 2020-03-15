@@ -8,7 +8,7 @@ namespace BBAAbsentList
         [STAThread]
         static void Main()
         {
-            Application.Run(new DegY3AbsentListHome());
+            Application.Run(new DegY3PCMCHome());
         }
     }
 }

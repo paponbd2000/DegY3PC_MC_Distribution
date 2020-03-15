@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DegY3AbsentListHome.cs">
+    <Compile Include="DegY3PCMCHome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DegY3AbsentListHome.Designer.cs">
-      <DependentUpon>DegY3AbsentListHome.cs</DependentUpon>
+    <Compile Include="DegY3PCMCHome.Designer.cs">
+      <DependentUpon>DegY3PCMCHome.cs</DependentUpon>
     </Compile>
     <Compile Include="cmd.cs" />
     <Compile Include="DatabaseHandler.cs" />
@@ -61,8 +61,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DegY3AbsentListHome.resx">
-      <DependentUpon>DegY3AbsentListHome.cs</DependentUpon>
+    <EmbeddedResource Include="DegY3PCMCHome.resx">
+      <DependentUpon>DegY3PCMCHome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
