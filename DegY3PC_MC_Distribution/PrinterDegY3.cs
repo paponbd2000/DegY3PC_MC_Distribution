@@ -52,12 +52,11 @@ namespace BBAAbsentList
                 }
             }
             studentDataReader.Close();
-            // studentDataReader.Dispose();
             sw.WriteLine("\f");
             sw.Close();
-            // sw.Dispose();
-            // conn.Close();
-            // conn.Dispose();
+            sw.Dispose();
+            conn.Close();
+            conn.Dispose();
         }
 
         private void printAbsentListHeader(StreamWriter sw)
